@@ -1,0 +1,13 @@
+<form method='post'>
+  <label for='housing_complex'>施設:</label>
+  <select id='housing_complex' name='housing_complex'>
+    {% for complex in housing_complexes %}
+      <option value="{{ complex.id }}">{{ complex.name }}</option>
+    {% endfor %}
+  </select><br>
+
+  <label for='building_name'>建物名:</label>
+  <input type='text' id='building_name' name='building_name'><br>
+
+  <input type='submit' value='Submit'>
+</form>

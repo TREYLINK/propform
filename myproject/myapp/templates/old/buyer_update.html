@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>顧客リスト</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">顧客リスト</h1>
+        <form method="post">
+            {% csrf_token %}
+            <!-- 폼 필드 추가 -->
+            <button type="submit" class="btn btn-primary">수정</button>
+        </form>
+    </div>
+</body>
+</html>

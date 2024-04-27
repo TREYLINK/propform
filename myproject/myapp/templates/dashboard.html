@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_style %}
+.swiper {
+    width: 360px;
+    height: 480px;
+  }
+
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .swiper-slide:nth-child(1n) {
+    background-color: #68CAD9;   }
+
+  .swiper-slide:nth-child(2n) {
+    background-color: rgb(0, 140, 255);
+  }
+
+  .swiper-slide:nth-child(3n) {
+    background-color: rgb(10, 184, 111);
+  }
+
+  .swiper-slide:nth-child(4n) {
+    background-color: rgb(211, 122, 7);
+  }
+
+  .swiper-slide:nth-child(5n) {
+    background-color: rgb(118, 163, 12);
+  }
+
+  .swiper-slide:nth-child(6n) {
+    background-color: rgb(180, 10, 47);
+  }
+
+  .swiper-slide:nth-child(7n) {
+    background-color: rgb(35, 99, 19);
+  }
+
+  .swiper-slide:nth-child(8n) {
+    background-color: rgb(0, 68, 255);
+  }
+
+  .swiper-slide:nth-child(9n) {
+    background-color: rgb(218, 12, 218);
+  }
+
+  .swiper-slide:nth-child(10n) {
+    background-color: rgb(54, 94, 77);
+  }
+
+  .custom-btn {
+    border-radius:50px;
+    background-color: #ffffff; /* 흰색 배경 */
+    color: #38b6ff; /* 하늘색 글씨 */
+    border: 2px solid #38b6ff; /* 하늘색 아웃라인 */
+  }
+
+  .custom-btn:hover {
+    background-color: #38b6ff; /* 하버 시 하늘색 배경 */
+    color: #ffffff; /* 하버 시 흰색 글씨 */
+  }
+
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>대시보드</h1>
+        <ul>
+            {% for report in reports %}
+            <li>{{ report.title }} - {{ report.created_at }}</li>
+            {% endfor %}
+        </ul>
+
+{% endblock %}
+{% block extra_script %}
+
+
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>注文履歴</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>注文番号</th>
+                <th>土地数量</th>
+                <th>建物数量</th>
+                <th>注文日</th>
+                <th>契約予定日</th>
+                <th>プラン</th>
+                <th>追加要求事項</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.land_quantity }}</td>
+                <td>{{ order.building_quantity }}</td>
+                <td>{{ order.order_date }}</td>
+                <td>{{ order.expected_contract_date }}</td>
+                <td>{{ order.plan }}</td>
+                <td>{{ order.additional_requirements }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

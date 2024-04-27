@@ -1,0 +1,5 @@
+<form method="post">
+    {% csrf_token %}
+    <p>本当に削除しますか？ "{{ object }}"?</p>
+    <button type="submit">削除します</button>
+</form>

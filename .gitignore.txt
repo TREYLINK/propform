@@ -1,0 +1,10 @@
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+
+# Ignore Django secret key file and development settings
+.env
+local_settings.py

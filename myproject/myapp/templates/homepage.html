@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_style %}
+.swiper {
+    width: 360px;
+    height: 480px;
+  }
+
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .swiper-slide:nth-child(1n) {
+    background-color: #68CAD9;   }
+
+  .swiper-slide:nth-child(2n) {
+    background-color: rgb(0, 140, 255);
+  }
+
+  .swiper-slide:nth-child(3n) {
+    background-color: rgb(10, 184, 111);
+  }
+
+  .swiper-slide:nth-child(4n) {
+    background-color: rgb(211, 122, 7);
+  }
+
+  .swiper-slide:nth-child(5n) {
+    background-color: rgb(118, 163, 12);
+  }
+
+  .swiper-slide:nth-child(6n) {
+    background-color: rgb(180, 10, 47);
+  }
+
+  .swiper-slide:nth-child(7n) {
+    background-color: rgb(35, 99, 19);
+  }
+
+  .swiper-slide:nth-child(8n) {
+    background-color: rgb(0, 68, 255);
+  }
+
+  .swiper-slide:nth-child(9n) {
+    background-color: rgb(218, 12, 218);
+  }
+
+  .swiper-slide:nth-child(10n) {
+    background-color: rgb(54, 94, 77);
+  }
+
+  .custom-btn {
+    border-radius:50px;
+    background-color: #ffffff; /* 흰색 배경 */
+    color: #38b6ff; /* 하늘색 글씨 */
+    border: 2px solid #38b6ff; /* 하늘색 아웃라인 */
+  }
+
+  .custom-btn:hover {
+    background-color: #38b6ff; /* 하버 시 하늘색 배경 */
+    color: #ffffff; /* 하버 시 흰색 글씨 */
+  }
+
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+{% comment %} 
+        <div>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" style="background-image: url('{% static 'pics/order_pic.png' %}');background-position: center; background-size: cover;"><a href="{% url 'create_order' %}" class="btn custom-btn" style="margin-top:250px;">発注フォームへ</a></div>
+                    <div class="swiper-slide" style="background-image: url('{% static 'pics/schedule_pic.png' %}');background-position: center; background-size: cover;"><a href="{% url 'create_order' %}" class="btn custom-btn" style="margin-top:250px;">スケージュール管理</a></div>
+                </div>
+                <!-- Next 버튼 -->
+                <div class="swiper-button-next" style="position:absolute;left:370px;"></div>
+
+                <!-- Previous 버튼 -->
+                <div class="swiper-button-prev" style="position:absolute;left:-30px;"></div>
+            </div>
+        </div>
+         {% endcomment %}
+{% comment %} 
+         <div class="row">
+            <!-- Order URLs -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">注文</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="{% url 'create_order' %}">注文フォーム</a></li>
+                        <li class="list-group-item"><a href="{% url 'create_order' %}">注文履歴</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Schedule URLs -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">スケージュール</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="{% url 'create_order' %}">スケージュール閲覧</a></li>
+                        <li class="list-group-item"><a href="{% url 'create_order' %}">スケージュール作成</a></li>
+                    </ul>
+                </div>
+            </div> {% endcomment %}
+            <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <!-- 이미지를 클릭하면 리스트가 토글되도록 data-target 설정 -->
+                    <img src="{% static 'pics/order_pic.png' %}" class="card-header toggle" data-target="#orderList" style="cursor: pointer;background-color: #68CAD9;" alt="ヘッダー画像">
+                    
+                    <!-- collapse 클래스를 추가하여 기본적으로 숨겨지도록 설정 -->
+                    <ul class="list-group list-group-flush" id="orderList">
+                        <li class="list-group-item"><a href="{% url 'create_order' %}">注文フォーム</a></li>
+                        <li class="list-group-item"><a href="{% url 'order_history' %}">注文履歴</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <!-- 이미지를 클릭하면 리스트가 토글되도록 data-target 설정 -->
+                    <img src="{% static 'pics/schedule_pic.png' %}" class="card-header toggle" data-target="#scheduleList" style="cursor: pointer;background-color: #68CAD9;" alt="ヘッダー画像">
+                    
+                    <!-- collapse 클래스를 추가하여 기본적으로 숨겨지도록 설정 -->
+                    <ul class="list-group list-group-flush" id="scheduleList">
+                        <li class="list-group-item"><a href="{% url 'calendar' %}">スケージュール閲覧</a></li>
+                        <li class="list-group-item"><a href="{% url 'create_order' %}">スケージュール作成</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+            {% comment %} 
+            
+            <!-- Building URLs -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">建物</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="{% url 'building_list' %}">建物リスト</a></li>
+                        <li class="list-group-item"><a href="{% url 'building_create' %}">新規建物作成</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Apartment URLs -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">マンション</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="{% url 'apartment_list' %}">マンションリスト</a></li>
+                        <li class="list-group-item"><a href="{% url 'apartment_create' %}">新規マンション作成</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Buyer URLs -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">顧客</div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="{% url 'buyer_list' %}">顧客リスト</a></li>
+                        <li class="list-group-item"><a href="{% url 'buyer_create' %}">新規顧客作成</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
+
+{% endblock %}
+{% block extra_script %}
+
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>建物詳細</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4">建物詳細</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ building.building_name }}</h5>
+            <p class="card-text"><strong>施設:</strong> {{ building.housing_complex.name }}</p>
+            <p class="card-text"><strong>建物名称:</strong> {{ building.building_name }}</p>
+            <a href="{% url 'building_update' building.id %}" class="btn btn-warning">更新</a>
+            <a href="{% url 'building_delete' building.id %}" class="btn btn-danger">削除</a>
+            <a href="{% url 'building_list' %}" class="btn btn-secondary">リストに戻る</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

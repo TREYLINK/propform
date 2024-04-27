@@ -1,0 +1,102 @@
+<!-- 두 번째 페이지 템플릿 - building_order_form.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+{% load widget_tweaks %}
+<div class="container mt-5">
+    <h2>詳細情報入力</h2>
+    <form method="POST" class="mt-4" enctype="multipart/form-data" id="orderForm">
+        {% csrf_token %}
+
+        <!-- 동적으로 생성된 건물 정보 입력란 -->
+        {{ building_forms.management_form }}
+        {% for building_form in building_forms %}
+        <div class="building-info">
+            <h3>建物 {{ forloop.counter }}</h3>
+            <div class="form-group">
+                <label for="{{ building_form.real_estate_number.id_for_label }}">不動産番号:</label>
+                {{ building_form.real_estate_number|add_class:'form-control' }}
+
+                <label for="{{ building_form.land_address.id_for_label }}">所在:</label>
+                {{ building_form.land_address|add_class:'form-control' }}
+
+                <label for="{{ building_form.building_type.id_for_label }}">建物種類:</label>
+                {{ building_form.building_type|add_class:'form-control' }}
+
+                <label for="{{ building_form.house_number.id_for_label }}">家屋番号:</label>
+                {{ building_form.house_number|add_class:'form-control' }}
+
+                <label for="{{ building_form.floor.id_for_label }}">階数:</label>
+                {{ building_form.floor|add_class:'form-control' }}
+
+                <label for="{{ building_form.area_floor.id_for_label }}">床面積:</label>
+                {{ building_form.area_floor|add_class:'form-control' }}
+                
+            </div>
+        </div>
+        {% endfor %}
+        {{ land_forms.management_form }}
+        {% for land_form in land_forms %}
+            <div class="land-info">
+                <h3>土地 {{ forloop.counter }}</h3>
+                <div class="form-group">
+                    <label for="{{ land_form.real_estate_number.id_for_label }}">不動産番号:</label>
+                    {{ land_form.real_estate_number|add_class:'form-control' }}
+                    
+                    <label for="{{ land_form.address.id_for_label }}">所在地:</label>
+                    {{ land_form.address|add_class:'form-control' }}
+
+                    <label for="{{ land_form.chimoku.id_for_label }}">地目:</label>
+                    {{ land_form.chimoku|add_class:'form-control' }}
+                            
+                    <label for="{{ land_form.area.id_for_label }}">面積:</label>
+                    {{ land_form.area|add_class:'form-control' }}
+
+                </div>
+            </div>
+        
+        {% endfor %}
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+        {% if land_forms.errors %}
+            <div class="alert alert-danger">
+                <strong>土地入力情報に誤りがあります．</strong>
+            </div>
+        {% endif %}
+        
+        {% if building_forms.errors %}
+            <div class="alert alert-danger">
+                <strong>建物入力情報に誤りがあります．</strong>
+            </div>
+        {% endif %}
+
+
+        <div class="form-group">
+            <label for="additional_requirements">その他要求事項:</label>
+            {{ form.additional_requirements|add_class:'form-control' }}
+        </div>
+
+        <div class="form-group">
+            <label for="plan">プラン選択:</label>
+            {{ form.plan|add_class:'form-control' }}
+        </div>
+
+        <div class="form-group">
+            <label for="expected_contract_date">契約予定日:</label>
+            {{ form.expected_contract_date|add_class:'form-control' }}
+        
+        </div>
+
+        <div class="form-group">
+            <label for="attachment">添付ファイル:</label>
+            {{ form.attachment|add_class:'form-control' }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">注文</button>
+    </form>
+</div>
+{% endblock %}

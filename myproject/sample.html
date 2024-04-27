@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prop Contract Order Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Prop Order Form</strong></li>
+        </ul>
+        <ul>
+            <li><a href="#orderForm">Order Form</a></li>
+            <li><a href="#terms">Terms</a></li>
+            <li><a href="#" role="button">Contact Us</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <div class="grid">
+            <section>
+                <hgroup>
+                    <h2>Prop Contract Order Form</h2>
+                    <h3>Please enter your details</h3>
+                </hgroup>
+                <form class="grid" action="#" method="post">
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Full Name" aria-label="Full Name" required>
+                    
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required>
+                    
+                    <label for="propDetails">Prop Details:</label>
+                    <textarea id="propDetails" name="propDetails" placeholder="Describe the prop you need" aria-label="Prop Details" required></textarea>
+
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" placeholder="Number of items" aria-label="Quantity" required>
+                    
+                    <button type="submit" onclick="event.preventDefault()">Submit Order</button>
+                </form>
+            </section>
+        </div>
+    </main>
+    <section aria-label="Terms and Conditions" id="terms">
+        <div class="container">
+            <article>
+                <hgroup>
+                    <h2>Terms and Conditions</h2>
+                    <h3>Review the Contract Terms Before Submitting</h3>
+                </hgroup>
+                <p>Please make sure to review the full contract terms available at the link below before submitting your order. Understanding your responsibilities and rights is crucial.</p>
+                <a href="#" target="_blank">Read Full Terms</a>
+            </article>
+        </div>
+    </section>
+    <footer class="container">
+        <small><a href="#">Privacy Policy</a> • <a href="#">FAQ</a></small>
+    </footer>
+</body>
+</html>

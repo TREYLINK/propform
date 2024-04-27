@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>建物更新</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">建物更新</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="housing_complex">施設:</label>
+                <select id="housing_complex" name="housing_complex" class="form-control">
+                    {% for complex in housing_complexes %}
+                        <option value="{{ complex.id }}" {% if complex.id == building.housing_complex.id %}selected{% endif %}>{{ complex.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="building_name">建物名:</label>
+                <input type="text" id="building_name" name="building_name" value="{{ building.building_name }}" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">更新</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

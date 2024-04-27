@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>施設リスト</title>
+</head>
+<body>
+    <h1>施設リスト</h1>
+    <a href="{% url 'housing_complex_create' %}">新規施設作成</a>
+    <ul>
+        {% for complex in complexes %}
+            <li>
+                {{ complex.name }} located at {{ complex.location }}
+                <a href="{% url 'housing_complex_update' complex.id %}">修正</a>
+                <a href="{% url 'housing_complex_delete' complex.id %}">削除</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

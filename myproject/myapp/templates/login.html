@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block extra_style %}
+    <style>
+        .container_login {
+            max-width: 400px;
+            margin: auto auto;
+            padding: 20px;
+        }
+        .login-form {
+            background: #f7f7f7;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        .form-control {
+            margin-bottom: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 0.8em;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container_login">
+        <div class="login-form">
+            <h2 class="text-center">Login</h2>
+            <form method="post" class="text-center">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <!-- 회원 등록 버튼 -->
+                <a href="{% url 'register' %}" class="btn btn-secondary btn-block">会員登録</a>
+                <!-- 아이디/비밀번호 찾기 링크 -->
+                <div class="text-center mt-3">
+                    <a href="{% url 'password_reset' %}">パスワードをお忘れですか？</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>TreyLink</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css' rel='stylesheet' />
+
+    {% block extra_head%}
+
+    {% endblock %}
+
+    <style>
+        .navbar-custom {
+            font: white;
+            background-color: #38b6ff;
+        }
+        .navbar-custom .navbar-nav .nav-link {
+            color: #ffffff; /* フォント 白 */
+        }
+    
+        .navbar-custom .navbar-brand {
+            color: #ffffff; /* ロゴフォント白 */
+        }
+        .footer {
+            text-align: center;
+            /* その他スタイル */
+            padding: 50px;
+        }
+        .navbar-toggler {
+            background-color: #fff; /* 背景 白*/
+            margin-left: auto;
+            color: #38b6ff;
+        }
+        .navbar-toggler-icon {
+            color: #38b6ff; /* 背景 空色 */
+        }
+
+        {% block extra_style %}
+    
+        {% endblock %}
+    
+    </style>
+    <!-- カスタム CSS ファイル -->
+
+</head>
+<body>
+    <header>
+        <!-- ヘッダーコンテンツ：ロゴ，ナビゲーションバー -->
+        <nav class="navbar navbar-custom">
+            <div class="container">
+                <div class="container">
+                    <div class="text-center mx-auto" > <!-- text-centerと mx-auto クラス追加 -->
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'pics/logo.png' %}" width="100" height="auto" alt="로고">
+                        </a>
+                    </div>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars" style="color: #38b6ff;"></i> <!-- Font Awesome アイコンを使用し，色指定 -->
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'home' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'home' %}">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="user-info text-right">
+            <div class="container">
+                {% if user.is_authenticated %}
+                    <span>こんにちは, {{ user.username }} 様!</span>
+                    <a href="{% url 'logout' %}">ログアウト</a>
+                {% else %}
+                    <a href="{% url 'login' %}">ログイン</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main role="main" class="container">
+        {% block content %}
+        <!-- ページ別内容 -->
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">&copy; 2023 TreyLink. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js'></script>
+
+    <!-- カスタム JS ファイル -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            
+            
+            form.addEventListener("submit", function (event) {
+                let isValid = true;
+                const buildingForms = document.querySelectorAll(".building-info input");
+                const landForms = document.querySelectorAll(".land-info input");
+                
+                // 建物フィル―ドに空いているフィル―ドがあるか確認
+                buildingForms.forEach(function (input) {
+                    if (input.value.trim() === "") {
+                        isValid = false;
+                        // 追加エラー処理
+                        input.classList.add("is-invalid");
+                    }
+                });
+                
+                // 土地フィル―ドに空いているフィル―ドがあるか確認
+                landForms.forEach(function (input) {
+                    if (input.value.trim() === "") {
+                        isValid = false;
+                        // 追加エラー処理
+                        input.classList.add("is-invalid");
+                    }
+                });
+    
+                // フィル―ドの一つでも空いているとフォーム提出防止
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+            {% comment %} const orderForm = document.getElementById('orderForm');
+            orderForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // フォームの基本提出を防止
+                
+                // 使用者にお知らせ
+                if (confirm('注文が完了しました．ホームに戻りますか？')) {
+                    window.location.href = '{% url 'home' %}'; // 確認を押したらホームにリダイレクト
+                }
+            }); {% endcomment %}
+        });
+    </script>
+
+        {% block extra_script %}
+        {% endblock %}
+</body>
+</html>

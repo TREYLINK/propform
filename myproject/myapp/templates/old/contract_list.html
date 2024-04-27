@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>契約リスト</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>契約リスト</h1>
+        <a href="{% url 'contract_create' %}" class="btn btn-primary">新規契約作成</a>
+        <table class="table table-striped mt-3">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>顧客</th>
+                    <th>マンション</th>
+                    <th>アクション</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for contract in contracts %}
+                <tr>
+                    <td>{{ contract.id }}</td>
+                    <td>{{ contract.buyer }}</td>
+                    <td>{{ contract.apartment }}</td>
+                    <td>
+                        <a href="{% url 'contract_update' contract.id %}" class="btn btn-warning">Update</a>
+                        <a href="{% url 'contract_delete' contract.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

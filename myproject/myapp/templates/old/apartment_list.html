@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>マンションリスト</title>
+    <!-- 부트스트랩 CSS 추가 -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container mt-5">
+        <h1 class="text-center">マンションリスト</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>建物</th>
+                    <th>建物番号</th>
+                    <th>階数</th>
+                    <th>部屋数</th>
+                    <th>トイレ数</th>
+                    <th>アクション</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for apartment in apartments %}
+                <tr>
+                    <td>{{ apartment.building }}</td>
+                    <td>{{ apartment.unit_number }}</td>
+                    <td>{{ apartment.floor }}</td>
+                    <td>{{ apartment.bedrooms }}</td>
+                    <td>{{ apartment.bathrooms }}</td>
+                    <td>
+                        <a href="{% url 'apartment_update' apartment.id %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'apartment_delete' apartment.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 부트스트랩 JS와 Popper.js 추가 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
