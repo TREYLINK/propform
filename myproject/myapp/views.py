@@ -17,7 +17,11 @@ from django.contrib.auth import update_session_auth_hash
 
 # %%%%%%%%%%%%%%%%%%%homepageview%%%%%%%%%%%%%%%%%%%%%%%%%
 def home_view(request):
-    return render(request, 'homepage.html')
+    if request.user.is_authenticated:
+        orders = Order.objects.filter(user=request.user).order_by('-order_date')
+    else:
+        orders = None
+    return render(request, 'homepage.html', {'orders': orders})
 
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%Developer CLUD%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -125,8 +129,7 @@ def building_order_view(request, order_id, land_quantity, building_quantity):
         form = OrderDetailForm(request.POST, request.FILES, instance=order)
         land_formset = LandFormSet(request.POST, prefix='land')
         building_formset = BuildingFormSet(request.POST, prefix='building')
-        if land_formset.is_valid() and building_formset.is_valid() and form.is_valid():
-            # 모든 폼셋과 주문 상세 폼이 유효한 경우에만 저장
+        if form.is_valid() and land_formset.is_valid() and building_formset.is_valid():
             form.save()
             for land_form in land_formset:
                 land = land_form.save(commit=False)
@@ -136,7 +139,9 @@ def building_order_view(request, order_id, land_quantity, building_quantity):
                 building = building_form.save(commit=False)
                 building.order = order
                 building.save()
-            return redirect('home')
+            # 성공 메시지 추가
+            messages.success(request, '주문이 성공적으로 처리되었습니다.')
+            return redirect('home')  # 'home'은 홈페이지의 URL 이름입니다.
     else:
         # GET 요청 시 폼셋 초기화
         form = OrderDetailForm(instance=order)
@@ -178,8 +183,10 @@ def order_detail_view(request, order_id):
     return render(request, 'building_order_form.html', {'form': form})
 
 def order_history(request):
-    orders = Order.objects.filter(user=request.user).order_by('-order_date')
-    return render(request, 'order_history.html', {'orders': orders})
+    if request.user.is_authenticated:
+        orders = Order.objects.filter(user=request.user).order_by('-order_date')
+        return {'order_history': orders}
+    return {}
 
 def view_schedule(request):
     orders = Order.objects.filter(user=request.user).order_by('order_date')
@@ -230,24 +237,24 @@ def all_events(request):
         })
 
     return JsonResponse(out, safe=False)
-
+@login_required
 def add_event(request):
     start = request.GET.get("start", None)
     end = request.GET.get("end", None)
     title = request.GET.get("title", None)
-    event = Event(title=str(title), start_date=start, end_date=end)
+    event = Event(title=str(title), start_date=start, end_date=end, user=request.user)
     event.save()
     print(f"Added event: {event.title}, Start: {event.start_date}, End: {event.end_date}")
 
     data = {"status": "success", "message": "Event added successfully"}
     return JsonResponse(data)
-
+@login_required
 def update(request):
     start = request.GET.get("start",None)
     end = request.GET.get("end",None)
     title = request.GET.get("title",None)
     id = request.GET.get("id",None)
-    event= Event.objects.get(id=id)
+    event= Event.objects.get(id=id, user=request.user)
     event.start_date = start
     event.end_date = end
     event.title = title
@@ -255,12 +262,26 @@ def update(request):
     data = {}
     return JsonResponse(data)
 
+@login_required
 def remove(request):
     id = request.GET.get("id", None)
-    event = Event.objects.get(id=id)
+    event = Event.objects.get(id=id,user=request.user)
     event.delete()
     data = {}
     return JsonResponse(data)
+
+@login_required
+def all_events(request):
+    events = Event.objects.filter(user=request.user)  # 현재 사용자의 이벤트만 필터링
+    event_list = []
+    for event in events:
+        event_list.append({
+            'id': event.id,
+            'title': event.title,
+            'start': event.start_date.strftime("%Y-%m-%dT%H:%M:%S"),
+            'end': event.end_date.strftime("%Y-%m-%dT%H:%M:%S"),
+        })
+    return JsonResponse(event_list, safe=False)
     
 def dashboard_view(request):
     reports = Report.objects.all()

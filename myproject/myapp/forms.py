@@ -134,4 +134,7 @@ class OrderDetailForm(forms.ModelForm):
     class Meta:
         model = Order
         fields = ['additional_requirements', 'plan', 'expected_contract_date', 'attachment']
+        widgets = {
+            'expected_contract_date': forms.DateInput(format='%Y-%m-%d', attrs={'type': 'date'}),
+        }
 

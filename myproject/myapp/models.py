@@ -717,6 +717,7 @@ class Event(models.Model):
     start_date = models.DateTimeField(null=True, blank=True)
     end_date = models.DateTimeField(null=True, blank=True)
     description = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
 class Report(models.Model):
     title = models.CharField(max_length=100)
